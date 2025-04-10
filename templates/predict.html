@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element-UI Example</title>
+    <!-- 引入Element-UI的样式文件 -->
+    <link rel="stylesheet" href="./element-ui.css">
+    <link rel="stylesheet" href="./test.css">
+</head>
+<body>
+    <div id="app">
+        <el-container class="main-wrapper">
+          <el-header class="system-header">
+            <span class="system-title">审评系统</span>
+          </el-header>
+      
+      
+            <el-main class="main-content">
+                <div slot="header" class="card-header"><span>文件上传</span></div>
+                <el-form ref="form" :model="uploadForm" label-width="80px">
+                  <el-select v-model="uploadForm.task" v-if="options.length > 0">
+                    <el-option 
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form>
+                
+                <el-upload class="upload-demo" ref="upload" action="" :auto-upload="false" 
+                    :file-list="fileList" :before-upload="beforeUpload" :on-change="handleChange">
+                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                    <el-button size="small" type="success" @click="submitUpload" style="margin-left:10px">上传到服务器</el-button>
+                </el-upload>
+              
+            </el-main>
+              
+       
+    </div>
+    <!-- 引入Vue.js -->
+    <script src="./vue.js"></script>
+    <!-- 引入Element-UI -->
+    <script src="./element-ui.js"></script>
+    <script src="./marked.js"></script>
+    <script src="./test.js"></script>
+    
+</body>
+</html>

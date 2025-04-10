@@ -1,0 +1,476 @@
+
+/* 全局样式 */
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+}
+
+.main-wrapper {
+height: 100vh;
+
+.system-header {
+background: #409EFF;
+display: flex;
+align-items: center;
+.system-title {
+color: white;
+font-size: 24px;
+font-weight: bold;
+}
+}
+
+.doc-selector {
+    margin: 20px 0;
+  }
+  
+  .doc-select {
+    width: 100%;
+  }
+  
+  .el-row {
+    margin-bottom: 15px;
+  }
+
+.nav-sidebar {
+background: #f5f7fa;
+.menu-container {
+height: 100%;
+border-right: none;
+}
+}
+
+.main-content {
+padding: 20px;
+background: #f0f2f5;
+
+.chapter-selector {
+    margin-bottom: 20px;
+    .chapter-select {
+        width: 300px;
+    }
+}
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-container {
+    height: calc(100vh - 160px);
+    
+    .content-card,
+    .conclusion-card {
+        height: 100%;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        
+        ::v-deep .el-card__body {
+        height: calc(100% - 50px);
+        padding: 20px;
+        }
+    }
+
+.text-editor-container,
+.conclusion-display {
+    height: 90%;
+    .rounded-editor,
+    .rounded-display {
+    height: 100%;
+    textarea {
+        border-radius: 8px;
+        resize: none;
+    }
+    }
+}
+
+.button-group {
+    margin-bottom: 20px;
+    .action-btn {
+    margin-right: 10px;
+    border-radius: 6px;
+    padding: 12px 20px;
+    }
+}
+.stream-display {
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.dynamic-console {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    
+    textarea {
+        resize: none;
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 3px;
+        }
+    }
+}
+
+.search-container {
+    position: fixed;
+    bottom: 450px;
+    left: 40px;
+    z-index: 2000;
+  }
+  
+  .search-ball {
+    width: 56px;
+    height: 56px;
+    background: #409eff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-ball.expanded {
+    width: 1200px;
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+  .search-wrapper {  /* 新增卡片样式 */
+    width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  }
+  .input-container {  /* 输入区域样式 */
+    background: #fff;
+    padding: 16px 16px 0 16px;
+    border-radius: 0 0 0 0;
+    position: relative;
+  }
+  
+  .custom-input .el-input__inner {
+    border-radius: 24px 0 0 24px;
+    border-right: none;
+  }
+  
+  .custom-input .el-input-group__append {
+    background: #409eff;
+    border-radius: 0 24px 24px 0;
+    border-left: none;
+    padding: 0 20px;
+  }
+  
+  .search-button {  /* 搜索按钮样式 */
+    color: white;
+    background: transparent !important;
+    border: none !important;
+    font-size: 24px;
+  }
+  
+  .results-container {  /* 结果区域间距 */
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .search-icon {
+    color: white;
+    font-size: 24px;
+    transition: opacity 0.2s;
+  }
+  
+  .search-box {
+    padding: 0 16px;
+    width: 100%;
+  }
+  /* 自定义加载样式 */
+.el-loading-spinner {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+}
+
+.el-loading-text {
+  color: #409EFF;
+  margin-top: 10px;
+  font-size: 14px;
+}
+  .custom-input {
+    width: 100%;
+    border-radius: 30px ;
+  }
+  
+  .search-btn {
+    padding: 8px;
+    margin-left: 8px;
+    transition: all 0.2s;
+  }
+  
+  .search-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .search-btn:active {
+    transform: scale(0.95);
+  }
+  .content-card {
+    margin-top: 20px;
+  }
+  
+  .search-results {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  
+  .search-item {
+    margin-bottom: 20px;
+  }
+  
+  .result-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .result-title {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .result-reference,
+  .result-file {
+    margin-right: 10px;
+    color: #666;
+  }
+  
+  .result-content,
+  .reference-details {
+    margin-top: 10px;
+  }
+  
+  .reference-card {
+    margin-top: 10px;
+  }
+  
+  .content-box,
+  .reference-box {
+    width: 100%;
+  }
+.rounded-display {
+    transition: margin-top 0.3s;
+}
+}
+
+}
+}
+/* 弹窗样式 */
+/* 标题居中 */
+.dialog-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  
+  /* 卡片样式 */
+  .dialog-card {
+    margin-bottom: 20px;
+    width: 100%;
+    overflow-y: auto;
+  }
+  
+  .card-header {
+    font-weight: 500;
+  }
+  
+  /* 过滤容器 */
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .filter-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* 弹窗高度控制 */
+  ::v-deep .ectd-dialog {
+    height: 66vh;
+  }
+  
+  ::v-deep .el-dialog__body {
+    max-height: calc(66vh - 110px);
+    overflow-y: auto;
+    padding: 15px 20px;
+  }
+.exp-dialog {
+height: 80vh;
+border-radius: 12px;
+overflow-y: auto;
+
+::v-deep .el-dialog__body {
+    height: calc(100% - 55px);
+    padding: 20px;
+}
+/* 按钮容器 */
+.button-group {
+  margin: 20px 0;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* 统一按钮样式 */
+.action-btn {
+  height: 40px;
+  min-width: 120px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+.exp-dialog-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .input-section {
+    margin-bottom: 20px;
+    .exp-textarea {
+        ::v-deep textarea {
+        border-radius: 8px;
+        min-height: 100px;
+        }
+    }
+    .btn-container {
+        text-align: center;
+        margin: 15px 0;
+        .confirm-btn {
+        width: 120px;
+        border-radius: 6px;
+        padding: 12px 24px;
+        }
+    }
+    }
+
+    .exp-list {
+        flex: 1;
+        overflow-y: auto;
+        .exp-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            ::v-deep .el-card__body {
+            padding: 15px;
+            }
+            .card-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            .exp-content {
+                ::v-deep textarea {
+                border-radius: 6px;
+                }
+            }
+            .action-container {
+                margin-top: 10px;
+                text-align: center;
+            }
+            }
+        }
+    }
+    /* 添加光标动画效果 */
+    .rounded-display textarea {
+        position: relative;
+    }
+
+    .rounded-display textarea::after {
+        content: "|";
+        animation: blink 1s step-end infinite;
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        color: #409EFF;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+    .report-card {
+      height: 800px !important; /* 固定视口高度的80% */
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .report-card .el-card__body {
+      height: 100%;
+      overflow-y: auto; /* 内容超出时显示滚动条 */
+      padding: 20px;
+    }
+    /* 添加过渡效果 */
+    .rounded-display textarea {
+        transition: all 0.3s ease;
+    }
+    .rounded-display .markdown-render {
+      /* 固定高度 & 滚动设置 */
+      height: 500px; /* 可根据需要调整具体高度值 */
+      overflow-y: auto; /* 垂直滚动 */
+      
+      /* 字体设置 */
+      font-family: "SimSun", serif; /* 宋体 */
+      font-size: 16px; 
+      
+      /* 原有样式保留 */
+      padding: 12px;
+      border: 1px solid #DCDFE6;
+      border-radius: 4px;
+      background: white;
+    }
+    
+    /* 确保所有子元素继承字体设置 */
+    .markdown-render * {
+      font-family: inherit;
+      font-size: inherit;
+      line-height: 1.6; /* 增加行高提升可读性 */
+    }
+    
+    /* 代码块保持等宽字体 */
+    .markdown-render pre,
+    .markdown-render code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 14px; /* 代码字号稍小 */
+    }
+
+    /* 基础 Markdown 样式 */
+    .markdown-render h1 { font-size: 48px !important;  margin: 0.67em 0; }
+    .markdown-render h2 { font-size: 1.5em; margin: 0.83em 0; }
+    .markdown-render h3 { 
+      margin: 1.2em 0 0.8em; /* 调整三级标题间距 */
+      border-left: 4px solid #409EFF; /* 添加Element-UI风格装饰线 */
+      padding-left: 12px;
+    }
+    .markdown-render p { margin: 1em 0; }
+    .markdown-render ul { padding-left: 2em; list-style: disc; }
+    .markdown-render ul ul {
+      margin-left: 2em;       /* 二级列表缩进 */
+      list-style-type: circle;/* 层级标识区分 */
+    }
+    .markdown-render code { padding: 0.2em 0.4em; background: #f3f4f4; border-radius: 3px; }
+    .markdown-render pre { background: #f8f8f8; padding: 1em; overflow: auto; }
+    }
+    .markdown-render blockquote {
+      border-left: 3px solid #67c23a; /* Element-UI success 色 */
+      background: #f0f9eb;
+      margin: 1em 0;
+      padding: 8px 16px;
+    }
+}

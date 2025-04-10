@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mq_main:
+    build: .
+    container_name: mq_main
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./input:/app/input
+    depends_on:
+      - zookeeper
+      - kafka
+      - autoformer
+      - informer
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  autoformer:
+    build:
+      context: ./Autoformer
+    container_name: autoformer
+    volumes:
+      - ./Autoformer/dataset:/dataset
+      - ./Autoformer/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: autoformer
+
+  informer:
+    build:
+      context: ./Informer2020
+    container_name: informer
+    volumes:
+      - ./Informer2020/dataset:/dataset
+      - ./Informer2020/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: informer
