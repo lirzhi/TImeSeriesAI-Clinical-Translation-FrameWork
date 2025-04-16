@@ -1,18 +1,25 @@
 version: '3.8'
 
 services:
-  mq_main:
+  main:
     build: .
-    container_name: mq_main
+    container_name: main
     ports:
       - "5000:5000"
-    volumes:
-      - ./input:/app/input
+    # volumes:
+    #   - ./input:/app/input
     depends_on:
       - zookeeper
       - kafka
       - autoformer
       - informer
+      - time-mixer
+      - itransformer
+      - large-timer
+      - skin-rl
+
+    environment:
+      - FLASK_RUN_HOST=0.0.0.0
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
@@ -38,22 +45,64 @@ services:
 
   autoformer:
     build:
-      context: ./Autoformer
+      context: ./models/Autoformer
     container_name: autoformer
-    volumes:
-      - ./Autoformer/dataset:/dataset
-      - ./Autoformer/scripts:/scripts
+    # volumes:
+      # - ./Autoformer/dataset:/dataset
+      # - ./Autoformer/scripts:/scripts
     environment:
       KAFKA_BROKER: kafka:9092
       TOPIC: autoformer
 
   informer:
     build:
-      context: ./Informer2020
+      context: ./models/informer
     container_name: informer
-    volumes:
-      - ./Informer2020/dataset:/dataset
-      - ./Informer2020/scripts:/scripts
+    # volumes:
+    #   - ./Informer2020/dataset:/dataset
+    #   - ./Informer2020/scripts:/scripts
     environment:
       KAFKA_BROKER: kafka:9092
       TOPIC: informer
+
+  itransformer:
+    build:
+      context: ./models/iTransformer
+    container_name: itransformer
+    # volumes:
+    #   - ./Informer2020/dataset:/dataset
+    #   - ./Informer2020/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: iTransformer
+  time-mixer:
+    build:
+      context: ./models/TimeMixer
+    container_name: time-mixer
+    # volumes:
+    #   - ./Informer2020/dataset:/dataset
+    #   - ./Informer2020/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: time-mixer
+  large-timer:
+    build:
+      context: ./models/Timer
+    container_name: large-timer
+    # volumes:
+    #   - ./Informer2020/dataset:/dataset
+    #   - ./Informer2020/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: large-timer
+  skin-rl:
+    build:
+      context: ./models/Skin_RL
+    container_name: skin-rl
+    # volumes:
+    #   - ./Informer2020/dataset:/dataset
+    #   - ./Informer2020/scripts:/scripts
+    environment:
+      KAFKA_BROKER: kafka:9092
+      TOPIC: skin-rl
+        

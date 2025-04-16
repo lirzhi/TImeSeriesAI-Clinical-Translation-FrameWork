@@ -9,36 +9,91 @@
     <link rel="stylesheet" href="./test.css">
 </head>
 <body>
-    <div id="app">
-        <el-container class="main-wrapper">
-          <el-header class="system-header">
-            <span class="system-title">审评系统</span>
-          </el-header>
+  <div id="app">
+    <el-container class="main-wrapper">
+      <el-header class="system-header">
+        <span class="system-title">模型预测效果</span>
+      </el-header>
       
-      
-            <el-main class="main-content">
-                <div slot="header" class="card-header"><span>文件上传</span></div>
-                <el-form ref="form" :model="uploadForm" label-width="80px">
-                  <el-select v-model="uploadForm.task" v-if="options.length > 0">
-                    <el-option 
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    />
-                  </el-select>
-                </el-form>
+      <el-main class="main-content">
+        <div class="centered-container">
+          
+          <!-- 表单区域 -->
+          <div class="form-container">
+            <el-form ref="form" :model="uploadForm" label-width="100px">
+              <!-- 任务选择 -->
+              <el-form-item label="任务选择" prop="task">
+                <el-select v-model="uploadForm.task" v-if="options.length > 0">
+                  <el-option 
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </el-form-item>
+              
+              <!-- 是否训练 -->
+              <el-form-item label="是否训练" prop="is_training">
+                <el-radio-group v-model="uploadForm.is_training">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="上传文件" prop="">
+                <!-- 上传按钮区域 -->
+                <div class="upload-buttons">
+                  <el-upload class="upload-demo" ref="upload" action="" :auto-upload="false" 
+                      :file-list="fileList" :before-upload="beforeUpload" :on-change="handleChange">
+                      <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                      <el-button size="small" type="success" @click="submitUpload" style="margin-left:10px">上传到服务器</el-button>
+                  </el-upload>
+                </div>
+              </el-form-item>
+
+            </el-form>
+          </div>
+
+          <el-button @click="performPredict" style="margin-left:10px" :loading="predictLoading">预测</el-button>
+          
+          <!-- 结果表格 -->
+          <div class="results-container">
+            <div class="model-results">
+              <el-table
+                :data="tableData"
+                border
+                style="width: 100%"
+                :header-cell-style="{ 'text-align': 'center' }"
+              >
+                <el-table-column prop="name" label="参数" width="120" align="center"></el-table-column>
                 
-                <el-upload class="upload-demo" ref="upload" action="" :auto-upload="false" 
-                    :file-list="fileList" :before-upload="beforeUpload" :on-change="handleChange">
-                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                    <el-button size="small" type="success" @click="submitUpload" style="margin-left:10px">上传到服务器</el-button>
-                </el-upload>
-              
-            </el-main>
-              
-       
-    </div>
+                <template v-for="model in models" :key="model">
+                  <el-table-column :label="model" align="center">
+                    <el-table-column prop="mse" label="MSE" width="120" align="center">
+                      <template #default="{ row }">
+                        <div v-if="row[model] && row[model].mse !== undefined && row[model].mse !== null">
+                          {{ row[model].mse.toFixed(4) }}
+                        </div>
+                      </template>
+                    </el-table-column>
+                    
+                    <el-table-column prop="mae" label="MAE" width="120" align="center">
+                      <template #default="{ row }">
+                        <div v-if="row[model] && row[model].mae !== undefined && row[model].mae !== null">
+                          {{ row[model].mae.toFixed(4) }}
+                        </div>
+                      </template>
+                    </el-table-column>
+                  </el-table-column>
+                </template>
+              </el-table>
+            </div>
+          </div>
+        </div>
+      </el-main>
+    </el-container>
+  </div>
+  
     <!-- 引入Vue.js -->
     <script src="./vue.js"></script>
     <!-- 引入Element-UI -->

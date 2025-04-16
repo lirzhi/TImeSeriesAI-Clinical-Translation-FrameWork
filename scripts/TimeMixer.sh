@@ -1,0 +1,2 @@
+# docker run -i --rm -v "$(pwd)/models/TimeMixer:/app" -w /app -e HOME=/temp mq-time-mixer ./scripts/predict.sh
+docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock  -v "$(pwd)/models/TimeMixer:/app" -w /app -e HOME=/temp mq-time-mixer ./scripts/predict.sh
