@@ -1,2 +1,2 @@
-# docker run -i --rm -v "$(pwd)/models/iTransformer:/app" -w /app -e HOME=/temp mq-itransformer ./scripts/predict.sh
-docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock  -v "$(pwd)/models/iTransformer:/app" -w /app -e HOME=/temp mq-itransformer ./scripts/predict.sh
+docker run -i --rm -v "$(pwd)/models/iTransformer:/app" -w /app -e HOME=/temp mq-itransformer ./scripts/predict.sh
+# docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock  -v "$(pwd)/models/iTransformer:/app" -w /app -e HOME=/temp mq-itransformer ./scripts/predict.sh
